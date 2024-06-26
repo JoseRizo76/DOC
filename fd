@@ -16,3 +16,30 @@ def login():
         return render_template("login.html")
     else:
         return render_template("login.html")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        usuario = request.form.get("usuario")
+        contraseña = request.form.get("password")
+        conn = sqlite3.connect('server.db')
+        cursor = conn.cursor()
+        try:
+            if not usuario.isdigit():
+                print("INGRESO POR USUARIO\n")
+                cursor.execute("SELECT ID_USUARIO FROM USUARIOS WHERE USUARIO = ?", (usuario,))
+                resultado = cursor.fetchone()
+                if resultado:
+                    print(resultado[0])
+                else:
+                    print("Usuario no encontrado")
+            else:
+                print(usuario)
+        except sqlite3.Error as e:
+            print(f"Error de base de datos: {e}")
+        finally:
+            conn.close()
+        return render_template("login.html")
+    else:
+        return render_template("login.html")
