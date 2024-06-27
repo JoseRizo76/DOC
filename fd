@@ -1,45 +1,59 @@
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        usuario = request.form.get("usuario")
-        contraseña = request.form.get("password")
-        conn = sqlite3.connect('server.db')
-        cursor = conn.cursor()
-
-        if( not (usuario.isdigit())):
-            print("INGRESO POR USUARIO\n")
-            cursor.execute("SELECT ID_USUARIO FROM USUARIOS WHERE USUARIO = ? ", usuario)
-            resultado =  cursor.fetchone()
-            print(resultado[0])
-        else:
-           print(usuario)
-        return render_template("login.html")
-    else:
-        return render_template("login.html")
-
-
-@app.route("/login", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        usuario = request.form.get("usuario")
-        contraseña = request.form.get("password")
-        conn = sqlite3.connect('server.db')
-        cursor = conn.cursor()
-        try:
-            if not usuario.isdigit():
-                print("INGRESO POR USUARIO\n")
-                cursor.execute("SELECT ID_USUARIO FROM USUARIOS WHERE USUARIO = ?", (usuario,))
-                resultado = cursor.fetchone()
-                if resultado:
-                    print(resultado[0])
-                else:
-                    print("Usuario no encontrado")
-            else:
-                print(usuario)
-        except sqlite3.Error as e:
-            print(f"Error de base de datos: {e}")
-        finally:
-            conn.close()
-        return render_template("login.html")
-    else:
-        return render_template("login.html")
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <script>
+        function validarDatos() {
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+            var usuario =  document.getElementById("usuario").value;
+            if (usuario.includes(' ')){
+                console.log('entro');
+                document.getElementById("usuario_error").style.display = 'block';
+                document.getElementById("usuario_error").innerText = "Sin espacios";
+                setTimeout( function(){
+                    document.getElementById("usuario_error").style.display = 'none';
+                }, 3000);
+                return false;
+            }
+            if (password !== confirmPassword) {
+                document.getElementById("password_error").innerText = "Las contraseñas no coinciden.";
+                console.log(password);
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    <form method="POST" action="/" onsubmit="return validarDatos()">
+        <p id="usuario_error" style="color: red; display: none;"></p>
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" name="usuario" required>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        <p style="color: red;">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="confirm_password">Confirmar Contraseña:</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <p id="password_error" style="color: red;"></p>
+        <br>
+        <button type="submit">Registrar</button>
+    </form>
+    <a href="{{ url_for('login') }}"><button>INICIAR SESION</button></a>
+</body>
+</html>
