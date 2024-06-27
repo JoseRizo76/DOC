@@ -6,21 +6,28 @@
     <title>Registro</title>
     <script>
         function validarDatos() {
+            var usuario = document.getElementById("usuario").value;
             var password = document.getElementById("password").value;
             var confirmPassword = document.getElementById("confirm_password").value;
-            var usuario =  document.getElementById("usuario").value;
-            if (usuario.includes(' ')){
-                console.log('entro');
+
+            // Restablecer mensajes de error
+            document.getElementById("usuario_error").style.display = 'none';
+            document.getElementById("password_error").style.display = 'none';
+
+            if (usuario.includes(' ')) {
                 document.getElementById("usuario_error").style.display = 'block';
-                document.getElementById("usuario_error").innerText = "Sin espacios";
-                setTimeout( function(){
+                document.getElementById("usuario_error").innerText = "El usuario no puede contener espacios.";
+                setTimeout(function() {
                     document.getElementById("usuario_error").style.display = 'none';
                 }, 3000);
                 return false;
             }
             if (password !== confirmPassword) {
+                document.getElementById("password_error").style.display = 'block';
                 document.getElementById("password_error").innerText = "Las contraseñas no coinciden.";
-                console.log(password);
+                setTimeout(function() {
+                    document.getElementById("password_error").style.display = 'none';
+                }, 3000);
                 return false;
             }
             return true;
@@ -50,7 +57,7 @@
         <br>
         <label for="confirm_password">Confirmar Contraseña:</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
-        <p id="password_error" style="color: red;"></p>
+        <p id="password_error" style="color: red; display: none;"></p>
         <br>
         <button type="submit">Registrar</button>
     </form>
