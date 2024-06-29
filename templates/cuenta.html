@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVM {{ USUARIO }}</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            border: 1px solid black;
+            text-align: center;
+        }
+        table {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h4>USUARIO: {{ USUARIO }}</h4>
+    <h4>DINERO: {{ DINERO }}</h4>
+    <h4>ID USUARIO: {{ ID_USUARIO }}</h4>
+    <a href="/login"><button>CERRAR SESION</button></a><br>
+    {% if recargas %}
+    <h3>Historial de Recargas</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Día</th>
+                <th>Mes</th>
+                <th>Año</th>
+                <th>Hora</th>
+                <th>Minuto</th>
+                <th>Segundo</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recarga in recargas %}
+            <tr>
+                <td>{{ recarga.dia }}</td>
+                <td>{{ recarga.mes }}</td>
+                <td>{{ recarga.year }}</td>
+                <td>{{ recarga.hora }}</td>
+                <td>{{ recarga.minuto }}</td>
+                <td>{{ recarga.segundo }}</td>
+                <td>{{ recarga.monto }} C$</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>SIN HISTORIAL DE RECARGAS</p>
+    {% endif %}
+</body>
+</html>

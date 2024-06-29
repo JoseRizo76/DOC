@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+<!DOCTYPE html>
+<html lang="es">
+{% block head %}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SNACK VENDING MACHINE</title>
+        <link href="/static/styleindex.css" rel="stylesheet">
+    </head>
+{% endblock %}
+<body>
+    {% block content %}
+    <a href="/singup"><button>REGISTRARSE</button></a>
+    <br>
+    <a href="/login"><button>INCIAR SESION</button></a>
+    <br>
+    <a href="/loginvendedor"><button>VENDEDOR</button></a>
+    {% endblock %}
+</body>
+</html>

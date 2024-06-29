@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% from "macros.html" import formulario_busqueda %}
+{% block head %}
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVM RECARGA</title>
+  </head>
+{% endblock %}
+{% block content %}
+    <div>
+      {% if code %}
+      <p>Aceeso Denegado</p>
+      <a href="/loginvendedor"><button>LOGIN VENDEDOR</button></a>
+      {% else %}
+      <div>
+        {% if codigo %}
+          {% if codigo == 1 %}
+          <p>datos</p>
+            <p>{{ USUARIO }}</p>
+            <p>{{ ID_USUARIO }}</p>
+            <p>{{ DINERO }}</p>
+            <form id="depositForm" action="/recarga" method="post">
+              <input type="hidden" name="id_usuario" value="{{ ID_USUARIO }}">
+              <label for="monto">MONTO</label>
+              <input type="number" name="monto" id="monto" required><br><br>
+              <input type="hidden" name="dia" id="dia">
+              <input type="hidden" name="mes" id="mes">
+              <input type="hidden" name="año" id="año">
+              <input type="hidden" name="hora" id="hora">
+              <input type="hidden" name="minutos" id="minutos">
+              <input type="hidden" name="segundos" id="segundos">
+              <button type="submit">Depositar</button>
+            </form>
+          {% elif codigo == 2 %}
+          {{ formulario_busqueda() }}
+            <h3>{{ mensaje }}</h3>
+          {% endif %}
+        {% else %}
+        {{ formulario_busqueda() }}
+      {% endif %}
+      </div>
+      <a href='/logout'>Cerrar sesión</a>
+      {% endif %}
+    </div>
+    <script>
+      function setFechaActual() {
+        var fecha = new Date();
+        var dia = fecha.getDate();
+        var mes = fecha.getMonth() + 1; 
+        var año = fecha.getFullYear();
+        var hora = fecha.getHours();
+        var minutos = fecha.getMinutes();
+        var segundos = fecha.getSeconds();
+        document.getElementById('dia').value = dia;
+        document.getElementById('mes').value = mes;
+        document.getElementById('año').value = año;
+        document.getElementById('hora').value = hora;
+        document.getElementById('minutos').value = minutos;
+        document.getElementById('segundos').value = segundos;
+      }
+
+      document.getElementById('depositForm').onsubmit = setFechaActual;
+    </script>
+{% endblock %}

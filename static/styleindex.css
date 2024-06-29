@@ -1,0 +1,22 @@
+body{
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    margin-top: 10px;
+    padding: 5px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+button:focus{
+    cursor:  wait;
+}

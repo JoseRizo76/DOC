@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVM VENDEDOR LOGIN</title>
+</head>
+<body>
+  <div>
+    <form action="/loginvendedor" method="post">
+      <label for="usuario">USUARIO</label>
+      <input type="text" name="VENDEDOR" id="usuario">
+      <label for="pass">CONTRASEÑA</label>
+      <input type="password" name="VENDEDORPASS" id="pass">
+      <button type="submit" > LOGIN</button>
+    </form>
+    {% if mensaje %}
+    <p>{{mensaje}}</p>
+    {% endif %}
+  </div>
+  <a href="/"><button>LOBBY</button></a>
+  
+</body>
+</html>

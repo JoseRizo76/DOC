@@ -1,0 +1,7 @@
+{% macro formulario_busqueda() %}
+<form action="/recarga" method="post">
+  <label for="usuario">ID_USUARIO</label>
+  <input type="text" name="id_usuario" id="usuario">
+  <button type="submit">Buscar</button>
+</form>
+{% endmacro %}

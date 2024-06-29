@@ -1,0 +1,63 @@
+body{
+    height: 98vh;
+    overflow: hidden;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 98vh;
+}
+.titulo{
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: oblique;
+    letter-spacing: 2px;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error{
+    display: none;
+    font-size: 15px;
+    color: red;
+    margin: 5px 5px 5px 5px;
+}
+
+input{
+    text-align: center;
+    padding:5px;
+    border: solid 1px ;
+    border-radius: 7px;
+    font-size: 12px;
+    width: 25vmin;
+    width: 40vmax;
+    height: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+label{
+    margin-top: 10px;
+
+}
+button{
+    margin-top: 10px;
+    padding: 4px;
+
+}
+button:hover{
+    cursor: pointer;
+}
+button:focus{
+    cursor:  wait;
+}
+

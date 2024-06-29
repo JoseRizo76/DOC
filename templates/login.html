@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/static/styleslogin.css" rel="stylesheet">
+    <title>SVM LOGIN</title>
+    <script>
+        document.getElementsByClassName("error").style.display = 'none';
+    function validarDatos() {
+        var usuario = document.getElementById("usuario").value;
+        document.getElementById("usuario_error").style.display = 'none';
+        setTimeout(function() {
+                document.getElementsByClassName("error").style.display = 'none';
+        }, 1000)
+
+        if (usuario.includes(' ')) {
+            document.getElementById("usuario_error").style.display = 'block';
+            document.getElementById("usuario_error").innerText = "El usuario no puede contener espacios.";
+            setTimeout(function() {
+                document.getElementById("usuario_error").style.display = 'none';
+                document.getElementsByClassName("error").style.display = 'none';
+            }, 1000);
+            return false;
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class='contenedor'>
+        <h1 class="titulo">INICIAR SESION</h1>
+        <form method="POST" action="/login" onsubmit="return validarDatos()">
+            <div class="formulario">
+                <label for="usuario">Usuario:</label>
+                <p id="usuario_error" style="color: red; display: none;"></p>
+                <input type="text" id="usuario" name="usuario" autofocus=off autocomplete=off required>
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" required>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% if category == 'error' %}
+                                <p class="error" style="display:block;">{{ message }}</p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <button type="submit">Ingresar</button>
+            </div>
+            <br>
+        </form>
+        <a href="/singup"><button>REGISTRARSE</button></a>
+        <a href="/"><button>MENU PRINCIPAL</button></a>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var errorElement = document.querySelector(".error");
+            if (errorElement) {
+                setTimeout(function() {
+                    errorElement.style.display = 'none';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
